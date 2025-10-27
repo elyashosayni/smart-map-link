@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>انتخاب مسیر‌یاب - لوکیشن مشتری</title>
+<style>
+  :root {
+    --bg: #f7f9fc;
+    --card: #fff;
+    --btn: #1976d2;
+    --btnDark: #0d47a1;
+  }
+  body {
+    margin: 0;
+    font-family: "Tahoma", sans-serif;
+    color: #222;
+    background: var(--bg);
+    direction: rtl;
+  }
+  .wrap {
+    max-width: 540px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    padding: 25px;
+    text-align: center;
+  }
+  h1 {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+  p {
+    color: #555;
+    margin: 6px 0 18px;
+  }
+  .coords {
+    display: inline-block;
+    background: #eef4ff;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .btn {
+    display: block;
+    margin: 10px auto;
+    padding: 14px 20px;
+    border-radius: 10px;
+    color: #fff;
+    text-decoration: none;
+    max-width: 320px;
+    font-size: 17px;
+  }
+  .gbtn { background: linear-gradient(90deg, #2196f3, #1976d2); }
+  .wbtn { background: #0b946e; }
+  .mbtn { background: #333; }
+  .webbtn { background: #607d8b; }
+  .hint {
+    font-size: 13px;
+    color: #666;
+    margin-top: 14px;
+  }
+  small.foot {
+    display: block;
+    margin-top: 14px;
+    color: #888;
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <h1>باز کردن موقعیت مشتری</h1>
+    <p>مکان مورد نظر را با یکی از اپ‌های مسیر‌یابی زیر باز کنید:</p>
+
+    <!-- مختصات اصلی -->
+    <div class="coords">35.75373734122444, 51.29816469786719</div>
+
+    <!-- دکمه‌ها -->
+    <a id="geoBtn" class="btn gbtn" 
+       href="geo:35.75373734122444,51.29816469786719?q=35.75373734122444,51.29816469786719(مقصد)">
+       🚗 باز کردن در Google Maps / نقشه‌ها
+    </a>
+
+    <a id="intentBtn" class="btn gbtn" 
+       href="https://www.google.com/maps/search/?api=1&query=35.75373734122444,51.29816469786719"
+       style="display:none">
+       🚗 باز کردن در Google Maps (مرورگر)
+    </a>
+
+    <a id="wazeBtn" class="btn wbtn" 
+       href="waze://?ll=35.75373734122444,51.29816469786719&navigate=yes">
+       🚙 باز کردن در Waze
+    </a>
+
+    <a id="appleBtn" class="btn mbtn" 
+       href="maps://?q=35.75373734122444,51.29816469786719">
+       🗺️ باز کردن در Apple Maps
+    </a>
+
+    <a id="webFallback" class="btn webbtn" 
+       href="https://maps.app.goo.gl/2vep9ro8xVwSxDHu8" target="_blank" rel="noopener">
+       🌐 باز کردن در مرورگر (Google Maps)
+    </a>
+
+    <p class="hint">
+      اگر اپ مورد نظر نصب نباشد، سیستم‌عامل گزینهٔ باز کردن در مرورگر یا سایر اپ‌ها را نمایش می‌دهد.
+    </p>
+
+    <small class="foot">
+      مختصات دقیق: 35.75373734122444, 51.29816469786719  
+      <br> لینک کوتاه Google Maps: <a href="https://maps.app.goo.gl/2vep9ro8xVwSxDHu8">maps.app.goo.gl/2vep9ro8xVwSxDHu8</a>
+    </small>
+  </div>
+</div>
+
+<script>
+(function(){
+  var ua = navigator.userAgent || navigator.vendor || window.opera;
+  var isiOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+  var isAndroid = /Android/.test(ua);
+
+  var appleBtn = document.getElementById('appleBtn');
+  var wazeBtn = document.getElementById('wazeBtn');
+  var geoBtn = document.getElementById('geoBtn');
+  var intentBtn = document.getElementById('intentBtn');
+
+  if (isiOS) {
+    geoBtn.style.display = 'none';
+    appleBtn.style.display = 'block';
+    wazeBtn.style.display = 'block';
+    intentBtn.style.display = 'none';
+  } else if (isAndroid) {
+    appleBtn.style.display = 'none';
+    geoBtn.style.display = 'block';
+    wazeBtn.style.display = 'block';
+    intentBtn.style.display = 'block';
+  } else {
+    appleBtn.style.display = 'none';
+    geoBtn.style.display = 'none';
+    wazeBtn.style.display = 'none';
+    intentBtn.style.display = 'block';
+    intentBtn.textContent = 'باز کردن در Google Maps (مرورگر)';
+  }
+})();
+</script>
+</body>
+</html>
